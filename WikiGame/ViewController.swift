@@ -24,10 +24,6 @@ struct Random: Decodable{
     let title: String
 }
 
-var randomArticle1: String = ""
-var randomArticle2: String = ""
-
-
 class ViewController: UIViewController {
    
     @IBOutlet weak var timeLabel: UILabel!
@@ -38,26 +34,45 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
     
+    var randomArticle1: String = ""
+    var randomArticle2: String = ""
+    
+    var time = 0
+    var timer = Timer()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         getRandomArticles { resp, err in
             DispatchQueue.main.async {
                 if let resp = resp {
-                    randomArticle1 = resp.query.random[0].title
-                    randomArticle2 = resp.query.random[1].title
+                    self.randomArticle1 = resp.query.random[0].title
+                    self.randomArticle2 = resp.query.random[1].title
                 }
                 
-                self.articleOneLabel.text = randomArticle1
-                self.articleTwoLabel.text = randomArticle2
+                self.articleOneLabel.text = self.randomArticle1
+                self.articleTwoLabel.text = self.randomArticle2
                 
-                let viewURL = URL(string: "https://en.wikipedia.org/wiki/\(randomArticle1.replacingOccurrences(of: " ", with: "_"))")!
+                let viewURL = URL(string: "https://en.wikipedia.org/wiki/\(self.randomArticle1.replacingOccurrences(of: " ", with: "_"))")!
                 //print(viewURL)
                 let viewRequest = URLRequest(url: viewURL)
                 self.webView.load(viewRequest)
+                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.count), userInfo: nil, repeats: true)
+                
                 
             }
         }
+    }
+    
+    @objc func count(){
+        time += 1
+        let displayTime = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
+        timeLabel.text = displayTime
+    }
+    
+    func timeFormat(_ time: String) -> String{
+        return "\(String(String(time.reversed()).padding(toLength: 2, withPad: "0", startingAt: 0).reversed()))"
     }
     
     func getRandomArticles(randomCompletionHandler: @escaping (RandomResponse?, Error?) -> Void){
