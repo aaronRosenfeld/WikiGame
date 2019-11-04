@@ -9,10 +9,22 @@
 import UIKit
 
 class WinPageViewController: UIViewController {
+    
+    @IBOutlet weak var timeLabel: UILabel!
+            
+    var time = String()    //holds elapsed time
+    var history: [String] = [] //holds titles of all wiki articles viewed
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        timeLabel.text = "Time: \(time)";
+            
+        var text = String()
+        for article in history{
+            text.append("-\(article)\n")
+        }
+        
         // Do any additional setup after loading the view.
     }
     

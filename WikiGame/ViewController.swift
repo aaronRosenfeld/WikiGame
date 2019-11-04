@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     var time = 0    //holds elapsed time
     var timer = Timer() //calls function at set interval
     
-    var history: [String] = []
+    var history: [String] = [] //holds titles of all wiki articles viewed
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,10 +121,16 @@ class ViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let winScreen = segue.destination as! WinPageViewController
+        winScreen.history = history
+        winScreen.time = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
+    }
+    
     //function called when the player wins
     func winCondition(){
         timer.invalidate()  //stops the timer
-        self.performSegue(withIdentifier: "WinSegue", sender:nil)
+        self.performSegue(withIdentifier: "WinSegue", sender:nil)   //switch to win screen view
     }
 
 }

@@ -16,18 +16,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlI-qK-7Op">
-                                <rect key="frame" x="124" y="421" width="166" height="54"/>
+                                <rect key="frame" x="170.66666666666666" y="421" width="73" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="New Game"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="msb-bq-2xF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WikiGame" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye8-SZ-FmJ">
+                                <rect key="frame" x="107.66666666666669" y="344" width="199" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="XlI-qK-7Op" firstAttribute="centerY" secondItem="QKZ-xC-nNk" secondAttribute="centerY" id="WAf-aH-Ffl"/>
+                            <constraint firstItem="ye8-SZ-FmJ" firstAttribute="centerX" secondItem="QKZ-xC-nNk" secondAttribute="centerX" id="XJ1-LW-NmR"/>
                             <constraint firstItem="XlI-qK-7Op" firstAttribute="centerX" secondItem="QKZ-xC-nNk" secondAttribute="centerX" id="ZPZ-LJ-B5E"/>
+                            <constraint firstItem="ye8-SZ-FmJ" firstAttribute="top" secondItem="eLN-Ii-zW6" secondAttribute="top" constant="300" id="mxu-Dc-Xgc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eLN-Ii-zW6"/>
                     </view>
@@ -157,15 +165,18 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="QfV-9u-7zX" firstAttribute="top" secondItem="7gS-dI-UOE" secondAttribute="top" constant="100" id="0i7-ki-pDI"/>
                             <constraint firstItem="QfV-9u-7zX" firstAttribute="centerX" secondItem="Tdm-aY-qOX" secondAttribute="centerX" id="7b2-Fe-SKd"/>
-                            <constraint firstItem="QfV-9u-7zX" firstAttribute="top" secondItem="7gS-dI-UOE" secondAttribute="top" constant="100" id="R7p-RV-VyS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7gS-dI-UOE"/>
                     </view>
+                    <connections>
+                        <outlet property="timeLabel" destination="K81-A7-Bzd" id="nHY-ZG-Ah0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4XW-E4-2Me" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="600" y="130"/>
+            <point key="canvasLocation" x="598.55072463768124" y="129.91071428571428"/>
         </scene>
     </scenes>
     <resources>
