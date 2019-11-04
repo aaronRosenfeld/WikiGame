@@ -11,6 +11,8 @@ import UIKit
 class WinPageViewController: UIViewController {
     
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var historyCountLabel: UILabel!
             
     var time = String()    //holds elapsed time
     var history: [String] = [] //holds titles of all wiki articles viewed
@@ -19,6 +21,7 @@ class WinPageViewController: UIViewController {
         super.viewDidLoad()
 
         timeLabel.text = "Time: \(time)";
+        historyCountLabel.text = "Pages: \(history.count)"
             
         var text = String()
         for article in history{

@@ -146,31 +146,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="QfV-9u-7zX">
-                                <rect key="frame" x="131.33333333333331" y="144" width="151.33333333333331" height="93"/>
+                                <rect key="frame" x="109.66666666666667" y="144" width="194.66666666666663" height="138"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Win!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-dg-9uJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="151.33333333333334" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="194.66666666666666" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K81-A7-Bzd">
-                                        <rect key="frame" x="0.0" y="63" width="151.33333333333334" height="30"/>
+                                        <rect key="frame" x="0.0" y="63" width="194.66666666666666" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HISTORY COUNT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NL7-Tg-l9s">
+                                        <rect key="frame" x="0.0" y="108" width="194.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH9-Zp-nQJ">
+                                <rect key="frame" x="140" y="722" width="134" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="134" id="O6U-12-CeT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="WDS-su-Tlg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="QfV-9u-7zX" firstAttribute="top" secondItem="7gS-dI-UOE" secondAttribute="top" constant="100" id="0i7-ki-pDI"/>
+                            <constraint firstItem="7gS-dI-UOE" firstAttribute="bottom" secondItem="TH9-Zp-nQJ" secondAttribute="bottom" constant="100" id="1e8-ba-hbR"/>
                             <constraint firstItem="QfV-9u-7zX" firstAttribute="centerX" secondItem="Tdm-aY-qOX" secondAttribute="centerX" id="7b2-Fe-SKd"/>
+                            <constraint firstItem="TH9-Zp-nQJ" firstAttribute="centerX" secondItem="Tdm-aY-qOX" secondAttribute="centerX" id="jzm-er-Bpf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7gS-dI-UOE"/>
                     </view>
                     <connections>
+                        <outlet property="historyCountLabel" destination="NL7-Tg-l9s" id="Rhk-Hk-aag"/>
                         <outlet property="timeLabel" destination="K81-A7-Bzd" id="nHY-ZG-Ah0"/>
                     </connections>
                 </viewController>
@@ -182,4 +205,7 @@
     <resources>
         <image name="arrow.right" catalog="system" width="64" height="48"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="WDS-su-Tlg"/>
+    </inferredMetricsTieBreakers>
 </document>

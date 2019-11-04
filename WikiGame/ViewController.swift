@@ -122,9 +122,11 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let winScreen = segue.destination as! WinPageViewController
-        winScreen.history = history
-        winScreen.time = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
+        if(sender == nil){
+            let winScreen = segue.destination as! WinPageViewController
+            winScreen.history = history
+            winScreen.time = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
+        }
     }
     
     //function called when the player wins
