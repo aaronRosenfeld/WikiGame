@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     var time = 0    //holds elapsed time
     var timer = Timer() //calls function at set interval
     
+    var history: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +63,15 @@ class ViewController: UIViewController {
                 let viewRequest = URLRequest(url: viewURL)
                 self.webView.load(viewRequest)
                 
-                //start timer and set interval
-                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.count), userInfo: nil, repeats: true)
-                
-                
             }
         }
+        
+        //add observer to view when webView's displayed title changes
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+        
+        //start timer and set interval
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.count), userInfo: nil, repeats: true)
+        
     }
     
     //function called when timer increments
@@ -99,6 +103,27 @@ class ViewController: UIViewController {
                 randomCompletionHandler(nil, jsonErr)
             }
         }.resume() //runs task
+    }
+    
+    //function which is called when a webView visits a new page
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "title" {
+            if let title = webView.title {
+                //removes appended " - Wikipedia" from the page title
+                //to get just the article title
+                let fixedTitle = title.replacingOccurrences(of: " - Wikipedia", with: "")
+                if(fixedTitle != "") {
+                    history.append(fixedTitle)  //adds page title to history of viewd pages if not emptystring
+                    //calls winCondition if the title of the article equals the destination article
+                    if(fixedTitle == randomArticle2){ winCondition() }
+                }
+            }
+        }
+    }
+    
+    //function called when the player wins
+    func winCondition(){
+        timer.invalidate()  //stops the timer
     }
 
 }
