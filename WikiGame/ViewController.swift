@@ -10,6 +10,8 @@ import UIKit
 import WebKit
 import Foundation
 
+//Three structs represent JSON object returned from wikipedia api call
+//used for parsing and storing data
 struct RandomResponse: Decodable{
     let query: Query
 }
@@ -26,38 +28,41 @@ struct Random: Decodable{
 
 class ViewController: UIViewController {
    
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!  //ui element which displays the time
     
-    @IBOutlet weak var articleOneLabel: UILabel!
+    @IBOutlet weak var articleOneLabel: UILabel!    //ui element which displays name of starting aritcle
     
-    @IBOutlet weak var articleTwoLabel: UILabel!
+    @IBOutlet weak var articleTwoLabel: UILabel!    //ui element which displays name of destination article
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var webView: WKWebView!  //ui element which displays the webpage
     
-    var randomArticle1: String = ""
-    var randomArticle2: String = ""
+    var randomArticle1: String = "" //holds starting article name
+    var randomArticle2: String = "" //holds destination article name
     
-    var time = 0
-    var timer = Timer()
+    var time = 0    //holds elapsed time
+    var timer = Timer() //calls function at set interval
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         getRandomArticles { resp, err in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {  //run in main thread
                 if let resp = resp {
-                    self.randomArticle1 = resp.query.random[0].title
-                    self.randomArticle2 = resp.query.random[1].title
+                    self.randomArticle1 = resp.query.random[0].title    //set starting article
+                    self.randomArticle2 = resp.query.random[1].title    //set destination article
                 }
                 
-                self.articleOneLabel.text = self.randomArticle1
-                self.articleTwoLabel.text = self.randomArticle2
+                self.articleOneLabel.text = self.randomArticle1 //set starting article label
+                self.articleTwoLabel.text = self.randomArticle2 //set destination article label
                 
+                //use starting article name to start webpage at starting article
+                //replaces spaces with underscores per wikipedia URL format
                 let viewURL = URL(string: "https://en.wikipedia.org/wiki/\(self.randomArticle1.replacingOccurrences(of: " ", with: "_"))")!
-                //print(viewURL)
                 let viewRequest = URLRequest(url: viewURL)
                 self.webView.load(viewRequest)
+                
+                //start timer and set interval
                 self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.count), userInfo: nil, repeats: true)
                 
                 
@@ -65,34 +70,36 @@ class ViewController: UIViewController {
         }
     }
     
+    //function called when timer increments
     @objc func count(){
-        time += 1
-        let displayTime = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
-        timeLabel.text = displayTime
+        time += 1 //increment time variable
+        let displayTime = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))" //creates formated time display
+        timeLabel.text = displayTime //sets ui element to display time
     }
     
+    //function used to format seconds and minutes, adding '0' padding
     func timeFormat(_ time: String) -> String{
         return "\(String(String(time.reversed()).padding(toLength: 2, withPad: "0", startingAt: 0).reversed()))"
     }
     
+    //function which calls the wikipedia api
     func getRandomArticles(randomCompletionHandler: @escaping (RandomResponse?, Error?) -> Void){
+        //set url for api endpoint
         guard let randomURL = URL(string: "http://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit=2") else { return }
+        //create task to call api asyncronously
         URLSession.shared.dataTask(with: randomURL) { (data, response, error) in
             guard let data = data else { return }
             do{
+                //decodes json response into struct defined earlier
                 if let resp = try JSONDecoder().decode(RandomResponse?.self, from: data){
-                    randomCompletionHandler(resp, nil)
+                    randomCompletionHandler(resp, nil) //calls callback completionhandler
                 }
-//                randomCompletionHandler(resp, nil)
-//                randomArticle1 = resp.query.random[0].title
-//                randomArticle2 = resp.query.random[1].title
-            } catch let jsonErr{
+            } catch let jsonErr{    //handles error in parsing json
                 print("Error:", jsonErr)
                 randomCompletionHandler(nil, jsonErr)
             }
-        }.resume()
+        }.resume() //runs task
     }
-
 
 }
 
