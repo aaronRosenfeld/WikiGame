@@ -124,6 +124,7 @@ class ViewController: UIViewController {
     //function called when the player wins
     func winCondition(){
         timer.invalidate()  //stops the timer
+        self.performSegue(withIdentifier: "WinSegue", sender:nil)
     }
 
 }
