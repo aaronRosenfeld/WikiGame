@@ -121,11 +121,12 @@ class ViewController: UIViewController {
         }
     }
     
+    //function sends data to winscreen during segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(sender == nil){
+        if(sender == nil){  //checks if it is the right segue
             let winScreen = segue.destination as! WinPageViewController
-            winScreen.history = history
-            winScreen.time = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"
+            winScreen.history = history //sends history array
+            winScreen.time = "\(timeFormat(String(time/60))):\(timeFormat(String(time%60)))"    //sends time
         }
     }
     

@@ -20,13 +20,14 @@ class WinPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        timeLabel.text = "Time: \(time)";
-        historyCountLabel.text = "Pages: \(history.count)"
-            
-        var text = String()
-        for article in history{
-            text.append("-\(article)\n")
-        }
+        timeLabel.text = "Time: \(time)";   //sets time label
+        historyCountLabel.text = "Pages: \(history.count)"  //sets hisory count label
+          
+        //for listing history items
+//        var text = String()
+//        for article in history{
+//            text.append("-\(article)\n")
+//        }
         
         // Do any additional setup after loading the view.
     }
